@@ -1,6 +1,8 @@
 from peewee import SqliteDatabase, Model, IntegerField, DoubleField, DateTimeField, datetime as peewee_datetime
 
-db = SqliteDatabase("data/exchange.db")
+from config import DB_NAME
+
+db = SqliteDatabase(DB_NAME)
 
 
 class XRate(Model):
@@ -16,12 +18,12 @@ class XRate(Model):
     rate = DoubleField()
     updated = DateTimeField(default=peewee_datetime.datetime.now)
 
-    def __str__(self):
+    def __repr__(self):
         return "XRate(%s=>%s): %s" % (self.from_currency, self.to_currency, self.rate)
 
 
 def init_db():
-    db.drop_tables(XRate)
+    XRate.drop_table()
     XRate.create_table()
     XRate.create(from_currency=840, to_currency=980, rate=1)
     print("db created!")

@@ -351,3 +351,18 @@
 2022-08-22 03:12:50,876 [DEBUG] - PrivatApi:Privat response: [{'ccy': 'USD', 'base_ccy': 'UAH', 'buy': '36.56860', 'sale': '37.31343'}, {'ccy': 'EUR', 'base_ccy': 'UAH', 'buy': '36.74410', 'sale': '37.59398'}, {'ccy': 'RUR', 'base_ccy': 'UAH', 'buy': '0.32000', 'sale': '0.35001'}, {'ccy': 'BTC', 'base_ccy': 'USD', 'buy': '20376.3477', 'sale': '22521.2265'}]
 2022-08-22 03:12:50,884 [DEBUG] - PrivatApi:rate after: XRate(840=>980): 37.31343
 2022-08-22 03:12:50,884 [INFO] - PrivatApi:Finished update for: 840=>980
+2022-08-22 16:21:39,558 [INFO] - PrivatApi:Started update for: 840=>980
+2022-08-22 16:21:39,559 [DEBUG] - PrivatApi:rate before: 1
+2022-08-22 16:21:39,810 [DEBUG] - PrivatApi:Privat response: [{'ccy': 'USD', 'base_ccy': 'UAH', 'buy': '36.56860', 'sale': '37.31343'}, {'ccy': 'EUR', 'base_ccy': 'UAH', 'buy': '36.74410', 'sale': '37.59398'}, {'ccy': 'RUR', 'base_ccy': 'UAH', 'buy': '0.32000', 'sale': '0.35001'}, {'ccy': 'BTC', 'base_ccy': 'USD', 'buy': '20159.4253', 'sale': '22281.4701'}]
+2022-08-22 16:21:39,816 [DEBUG] - PrivatApi:rate after: 1
+2022-08-22 16:21:39,816 [INFO] - PrivatApi:Finished update for: 840=>980
+2022-08-22 16:24:18,739 [INFO] - PrivatApi:Started update for: 840=>980
+2022-08-22 16:24:18,740 [DEBUG] - PrivatApi:rate before: 1
+2022-08-22 16:24:19,022 [DEBUG] - PrivatApi:Privat response: [{'ccy': 'USD', 'base_ccy': 'UAH', 'buy': '36.56860', 'sale': '37.31343'}, {'ccy': 'EUR', 'base_ccy': 'UAH', 'buy': '36.74410', 'sale': '37.59398'}, {'ccy': 'RUR', 'base_ccy': 'UAH', 'buy': '0.32000', 'sale': '0.35001'}, {'ccy': 'BTC', 'base_ccy': 'USD', 'buy': '20121.0561', 'sale': '22239.0620'}]
+2022-08-22 16:24:19,029 [DEBUG] - PrivatApi:rate after: 1
+2022-08-22 16:24:19,029 [INFO] - PrivatApi:Finished update for: 840=>980
+2022-08-22 16:26:33,780 [INFO] - PrivatApi:Started update for: 840=>980
+2022-08-22 16:26:33,782 [DEBUG] - PrivatApi:rate before: 1
+2022-08-22 16:26:34,035 [DEBUG] - PrivatApi:Privat response: [{'ccy': 'USD', 'base_ccy': 'UAH', 'buy': '36.56860', 'sale': '37.31343'}, {'ccy': 'EUR', 'base_ccy': 'UAH', 'buy': '36.74410', 'sale': '37.59398'}, {'ccy': 'RUR', 'base_ccy': 'UAH', 'buy': '0.32000', 'sale': '0.35001'}, {'ccy': 'BTC', 'base_ccy': 'USD', 'buy': '20140.6470', 'sale': '22260.7152'}]
+2022-08-22 16:26:34,043 [DEBUG] - PrivatApi:rate after: 1
+2022-08-22 16:26:34,043 [INFO] - PrivatApi:Finished update for: 840=>980

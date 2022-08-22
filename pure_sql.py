@@ -1,7 +1,7 @@
 import sqlite3
 
 
-conn = sqlite3.connect('"data/exchange.db"')
+conn = sqlite3.connect("data/exchange.db")
 
 cur = conn.cursor()
 
