@@ -1,10 +1,12 @@
+import xml.etree.ElementTree as ET
+
 import requests
 
 from models import XRate, peewee_datetime
-
 from config import logging, LOGGER_CONFIG
 
-log = logging.getLogger("PrivatApi")
+
+log = logging.getLogger("CbrApi")
 fh = logging.FileHandler(LOGGER_CONFIG["file"])
 fh.setLevel(LOGGER_CONFIG["level"])
 fh.setFormatter(LOGGER_CONFIG["formatter"])
@@ -18,7 +20,7 @@ def update_xrates(from_currency, to_currency):
                                  XRate.to_currency == to_currency).first()
 
     log.debug("rate before: %s", xrate)
-    xrate.rate = get_privat_rate(from_currency)
+    xrate.rate = get_cbr_rate(from_currency)
     xrate.updated = peewee_datetime.datetime.now()
     xrate.save()
 
@@ -26,18 +28,22 @@ def update_xrates(from_currency, to_currency):
     log.info("Finished update for: %s=>%s" % (from_currency, to_currency))
 
 
-def get_privat_rate(from_currency):
-    response = requests.get("https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11")
-    response_json = response.json()
-    log.debug("Privat response: %s" % response_json)
-    usd_rate = find_usd_rate(response_json)
+def get_cbr_rate(from_currency):
+    response = requests.get("http://www.cbr.ru/scripts/XML_daily.asp")
+    log.debug("response.encoding: %s" % response.encoding)
+    response_text = response.text
+    log.debug("response.text: %s" % response_text)
+    usd_rate = find_usd_rate(response_text)
 
     return usd_rate
 
 
-def find_usd_rate(response_data):
-    for e in response_data:
-        if e["ccy"] == "USD":
-            return float(e["sale"])
+def find_usd_rate(response_text):
+    root = ET.fromstring(response_text)
+    valutes = root.findall("Valute")
 
-    raise ValueError("Invalid Privat response: USD not found")
+    for valute in valutes:
+        if valute.find('CharCode').text == "USD":
+            return float(valute.find("Value").text.replace(",", "."))
+
+    raise ValueError("Invalid Cbr response: USD not found")

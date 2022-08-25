@@ -18,7 +18,7 @@ class XRate(Model):
     rate = DoubleField()
     updated = DateTimeField(default=peewee_datetime.datetime.now)
 
-    def __repr__(self):
+    def __str__(self):
         return "XRate(%s=>%s): %s" % (self.from_currency, self.to_currency, self.rate)
 
 
@@ -26,4 +26,5 @@ def init_db():
     XRate.drop_table()
     XRate.create_table()
     XRate.create(from_currency=840, to_currency=980, rate=1)
+    XRate.create(from_currency=840, to_currency=643, rate=1)
     print("db created!")
