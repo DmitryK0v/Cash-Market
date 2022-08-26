@@ -1,7 +1,10 @@
+import traceback
+
+import requests
 
 from config import logging, LOGGER_CONFIG
 
-from models import XRate, peewee_datetime
+from models import XRate, peewee_datetime, ApiLog, ErrorLog
 
 fh = logging.FileHandler(LOGGER_CONFIG["file"])
 fh.setLevel(LOGGER_CONFIG["level"])
@@ -29,3 +32,21 @@ class _Api:
 
     def _update_rate(self, xrate):
         raise NotImplementedError("_update_rate")
+    def _send_request(self, url, method, data=None, headers=None):
+        log = ApiLog(request_url=url, request_data=data, request_method=method,
+                     request_headers=headers)
+        try:
+            response = self._send(method=method, url=url, headers=headers, data=data)
+            log.response_text = response.text
+            return response
+        except Exception as ex:
+            self.log.exception("Error during request sending")
+            log.error = str(ex)
+            ErrorLog.create(request_data=data, request_url=url, request_method=method,
+                     error=str(ex), traceback=traceback.format_exc(chain=False))
+            raise
+        finally:
+            log.finished = peewee_datetime.datetime.now()
+            log.save()
+    def _send(self, method, url, headers=None, data=None):
+        return requests.request(method=method, url=url, headers=headers, data=data, timeout=15)
