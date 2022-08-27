@@ -516,3 +516,80 @@ Traceback (most recent call last):
   File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/requests/adapters.py", line 553, in send
     raise ConnectTimeout(e, request=request)
 requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.privatbank.ua', port=443): Max retries exceeded with url: /p24api/pubinfo?exchange&json&coursid=11 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7ff617676c20>, 'Connection to api.privatbank.ua timed out. (connect timeout=0.001)'))
+2022-08-27 21:09:51,203 [INFO] - PrivatApi:Started update for: XRate(840=>980): 1.0
+2022-08-27 21:09:51,203 [DEBUG] - PrivatApi:rate before: XRate(840=>980): 1.0
+2022-08-27 21:09:51,246 [ERROR] - PrivatApi:Error during request sending
+Traceback (most recent call last):
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 95, in create_connection
+    raise err
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/urllib3/connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/urllib3/connection.py", line 179, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPSConnection object at 0x7f891dad4d90>, 'Connection to api.privatbank.ua timed out. (connect timeout=0.001)')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.privatbank.ua', port=443): Max retries exceeded with url: /p24api/pubinfo?exchange&json&coursid=11 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7f891dad4d90>, 'Connection to api.privatbank.ua timed out. (connect timeout=0.001)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dimus/PyProject/Cash-Market/api/__init__.py", line 46, in _send_request
+    response = self._send(method=method, url=url, headers=headers, data=data)
+  File "/home/dimus/PyProject/Cash-Market/api/__init__.py", line 60, in _send
+    return requests.request(method=method, url=url, headers=headers, data=data, timeout=HTTP_TIMEOUT)
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/dimus/PyProject/Cash-Market/venv/lib/python3.10/site-packages/requests/adapters.py", line 553, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.privatbank.ua', port=443): Max retries exceeded with url: /p24api/pubinfo?exchange&json&coursid=11 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7f891dad4d90>, 'Connection to api.privatbank.ua timed out. (connect timeout=0.001)'))
+2022-08-27 21:09:51,323 [INFO] - CbrApi:Started update for: XRate(840=>643): 1.0
+2022-08-27 21:09:51,323 [DEBUG] - CbrApi:rate before: XRate(840=>643): 1.0
+2022-08-27 21:09:51,630 [DEBUG] - CbrApi:response.encoding: windows-1251
+2022-08-27 21:09:51,630 [DEBUG] - CbrApi:response.text: <?xml version="1.0" encoding="windows-1251"?><ValCurs Date="27.08.2022" name="Foreign Currency Market"><Valute ID="R01010"><NumCode>036</NumCode><CharCode>AUD</CharCode><Nominal>1</Nominal><Name>Австралийский доллар</Name><Value>41,8063</Value></Valute><Valute ID="R01020A"><NumCode>944</NumCode><CharCode>AZN</CharCode><Nominal>1</Nominal><Name>Азербайджанский манат</Name><Value>35,3485</Value></Valute><Valute ID="R01035"><NumCode>826</NumCode><CharCode>GBP</CharCode><Nominal>1</Nominal><Name>Фунт стерлингов Соединенного королевства</Name><Value>71,0653</Value></Valute><Valute ID="R01060"><NumCode>051</NumCode><CharCode>AMD</CharCode><Nominal>100</Nominal><Name>Армянских драмов</Name><Value>14,8442</Value></Valute><Valute ID="R01090B"><NumCode>933</NumCode><CharCode>BYN</CharCode><Nominal>1</Nominal><Name>Белорусский рубль</Name><Value>23,5888</Value></Valute><Valute ID="R01100"><NumCode>975</NumCode><CharCode>BGN</CharCode><Nominal>1</Nominal><Name>Болгарский лев</Name><Value>30,6328</Value></Valute><Valute ID="R01115"><NumCode>986</NumCode><CharCode>BRL</CharCode><Nominal>1</Nominal><Name>Бразильский реал</Name><Value>11,7437</Value></Valute><Valute ID="R01135"><NumCode>348</NumCode><CharCode>HUF</CharCode><Nominal>100</Nominal><Name>Венгерских форинтов</Name><Value>14,6764</Value></Valute><Valute ID="R01200"><NumCode>344</NumCode><CharCode>HKD</CharCode><Nominal>10</Nominal><Name>Гонконгских долларов</Name><Value>76,7170</Value></Valute><Valute ID="R01215"><NumCode>208</NumCode><CharCode>DKK</CharCode><Nominal>10</Nominal><Name>Датских крон</Name><Value>80,5550</Value></Valute><Valute ID="R01235"><NumCode>840</NumCode><CharCode>USD</CharCode><Nominal>1</Nominal><Name>Доллар США</Name><Value>60,0924</Value></Valute><Valute ID="R01239"><NumCode>978</NumCode><CharCode>EUR</CharCode><Nominal>1</Nominal><Name>Евро</Name><Value>59,8784</Value></Valute><Valute ID="R01270"><NumCode>356</NumCode><CharCode>INR</CharCode><Nominal>100</Nominal><Name>Индийских рупий</Name><Value>75,3483</Value></Valute><Valute ID="R01335"><NumCode>398</NumCode><CharCode>KZT</CharCode><Nominal>100</Nominal><Name>Казахстанских тенге</Name><Value>12,9217</Value></Valute><Valute ID="R01350"><NumCode>124</NumCode><CharCode>CAD</CharCode><Nominal>1</Nominal><Name>Канадский доллар</Name><Value>46,4500</Value></Valute><Valute ID="R01370"><NumCode>417</NumCode><CharCode>KGS</CharCode><Nominal>100</Nominal><Name>Киргизских сомов</Name><Value>74,4789</Value></Valute><Valute ID="R01375"><NumCode>156</NumCode><CharCode>CNY</CharCode><Nominal>10</Nominal><Name>Китайских юаней</Name><Value>87,4478</Value></Valute><Valute ID="R01500"><NumCode>498</NumCode><CharCode>MDL</CharCode><Nominal>10</Nominal><Name>Молдавских леев</Name><Value>31,0094</Value></Valute><Valute ID="R01535"><NumCode>578</NumCode><CharCode>NOK</CharCode><Nominal>10</Nominal><Name>Норвежских крон</Name><Value>62,1972</Value></Valute><Valute ID="R01565"><NumCode>985</NumCode><CharCode>PLN</CharCode><Nominal>1</Nominal><Name>Польский злотый</Name><Value>12,6630</Value></Valute><Valute ID="R01585F"><NumCode>946</NumCode><CharCode>RON</CharCode><Nominal>1</Nominal><Name>Румынский лей</Name><Value>12,3294</Value></Valute><Valute ID="R01589"><NumCode>960</NumCode><CharCode>XDR</CharCode><Nominal>1</Nominal><Name>СДР (специальные права заимствования)</Name><Value>78,4548</Value></Valute><Valute ID="R01625"><NumCode>702</NumCode><CharCode>SGD</CharCode><Nominal>1</Nominal><Name>Сингапурский доллар</Name><Value>43,2195</Value></Valute><Valute ID="R01670"><NumCode>972</NumCode><CharCode>TJS</CharCode><Nominal>10</Nominal><Name>Таджикских сомони</Name><Value>58,6267</Value></Valute><Valute ID="R01700J"><NumCode>949</NumCode><CharCode>TRY</CharCode><Nominal>10</Nominal><Name>Турецких лир</Name><Value>33,0851</Value></Valute><Valute ID="R01710A"><NumCode>934</NumCode><CharCode>TMT</CharCode><Nominal>1</Nominal><Name>Новый туркменский манат</Name><Value>17,1693</Value></Valute><Valute ID="R01717"><NumCode>860</NumCode><CharCode>UZS</CharCode><Nominal>10000</Nominal><Name>Узбекских сумов</Name><Value>55,0516</Value></Valute><Valute ID="R01720"><NumCode>980</NumCode><CharCode>UAH</CharCode><Nominal>10</Nominal><Name>Украинских гривен</Name><Value>16,2997</Value></Valute><Valute ID="R01760"><NumCode>203</NumCode><CharCode>CZK</CharCode><Nominal>10</Nominal><Name>Чешских крон</Name><Value>24,3043</Value></Valute><Valute ID="R01770"><NumCode>752</NumCode><CharCode>SEK</CharCode><Nominal>10</Nominal><Name>Шведских крон</Name><Value>56,6877</Value></Valute><Valute ID="R01775"><NumCode>756</NumCode><CharCode>CHF</CharCode><Nominal>1</Nominal><Name>Швейцарский франк</Name><Value>62,2848</Value></Valute><Valute ID="R01810"><NumCode>710</NumCode><CharCode>ZAR</CharCode><Nominal>10</Nominal><Name>Южноафриканских рэндов</Name><Value>35,7074</Value></Valute><Valute ID="R01815"><NumCode>410</NumCode><CharCode>KRW</CharCode><Nominal>1000</Nominal><Name>Вон Республики Корея</Name><Value>45,1381</Value></Valute><Valute ID="R01820"><NumCode>392</NumCode><CharCode>JPY</CharCode><Nominal>100</Nominal><Name>Японских иен</Name><Value>43,9529</Value></Valute></ValCurs>
+2022-08-27 21:09:51,635 [DEBUG] - CbrApi:rate after: XRate(840=>643): 60.0924
+2022-08-27 21:09:51,636 [INFO] - CbrApi:Finished update for: XRate(840=>643): 60.0924
+2022-08-27 21:09:51,699 [INFO] - CryptonatorApi:Started update for: XRate(1000=>980): 1.0
+2022-08-27 21:09:51,700 [DEBUG] - CryptonatorApi:rate before: XRate(1000=>980): 1.0
+2022-08-27 21:09:52,048 [INFO] - PrivatApi:Started update for: XRate(1000=>840): 1.0
+2022-08-27 21:09:52,049 [DEBUG] - PrivatApi:rate before: XRate(1000=>840): 1.0
+2022-08-27 21:09:52,249 [DEBUG] - PrivatApi:Privat response: [{'ccy': 'USD', 'base_ccy': 'UAH', 'buy': '36.56860', 'sale': '37.31343'}, {'ccy': 'EUR', 'base_ccy': 'UAH', 'buy': '36.54670', 'sale': '37.45318'}, {'ccy': 'RUR', 'base_ccy': 'UAH', 'buy': '0.32000', 'sale': '0.35001'}, {'ccy': 'BTC', 'base_ccy': 'USD', 'buy': '18990.0022', 'sale': '20988.9498'}]
+2022-08-27 21:09:52,255 [DEBUG] - PrivatApi:rate after: XRate(1000=>840): 20988.9498
+2022-08-27 21:09:52,256 [INFO] - PrivatApi:Finished update for: XRate(1000=>840): 20988.9498
+2022-08-27 21:09:52,321 [INFO] - PrivatApi:Started update for: XRate(840=>980): 1.0
+2022-08-27 21:09:52,321 [DEBUG] - PrivatApi:rate before: XRate(840=>980): 1.0
+2022-08-27 21:09:52,329 [DEBUG] - PrivatApi:Privat response: [{'ccy': 'USD', 'base_ccy': 'UAH', 'sale': '30.0'}]
+2022-08-27 21:09:52,333 [DEBUG] - PrivatApi:rate after: XRate(840=>980): 30.0
+2022-08-27 21:09:52,333 [INFO] - PrivatApi:Finished update for: XRate(840=>980): 30.0
+2022-08-27 21:09:52,439 [INFO] - PrivatApi:Started update for: XRate(840=>980): 1.0
+2022-08-27 21:09:52,439 [DEBUG] - PrivatApi:rate before: XRate(840=>980): 1.0
+2022-08-27 21:09:52,673 [DEBUG] - PrivatApi:Privat response: [{'ccy': 'USD', 'base_ccy': 'UAH', 'buy': '36.56860', 'sale': '37.31343'}, {'ccy': 'EUR', 'base_ccy': 'UAH', 'buy': '36.54670', 'sale': '37.45318'}, {'ccy': 'RUR', 'base_ccy': 'UAH', 'buy': '0.32000', 'sale': '0.35001'}, {'ccy': 'BTC', 'base_ccy': 'USD', 'buy': '18990.0022', 'sale': '20988.9498'}]
+2022-08-27 21:09:52,725 [DEBUG] - PrivatApi:rate after: XRate(840=>980): 37.31343
+2022-08-27 21:09:52,725 [INFO] - PrivatApi:Finished update for: XRate(840=>980): 37.31343
