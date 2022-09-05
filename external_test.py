@@ -14,13 +14,13 @@ class ExternalTest(unittest.TestCase):
         xml_rates = xmltodict.parse(r.text)
         self.assertIn("xrates", xml_rates)
         self.assertIsInstance(xml_rates["xrates"]["xrate"], list)
-        self.assertEqual(len(xml_rates["xrates"]["xrate"]), 5)
+        self.assertEqual(len(xml_rates["xrates"]["xrate"]), 3)
 
     def test_json_api(self):
         r = requests.get("http://localhost:5000/api/xrates/json")
         json_rates = r.json()
         self.assertIsInstance(json_rates, list)
-        self.assertEqual(len(json_rates), 5)
+        self.assertEqual(len(json_rates), 3)
         for rate in json_rates:
             self.assertIn("from", rate)
             self.assertIn("to", rate)

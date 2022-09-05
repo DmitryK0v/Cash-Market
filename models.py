@@ -41,6 +41,10 @@ class ApiLog(_Model):
     finished = DateTimeField()
     error = TextField(null=True)
 
+    def json(self):
+        data = self.__data__
+        return data
+
 
 class ErrorLog(_Model):
     class Meta:
@@ -60,8 +64,6 @@ def init_db():
     XRate.create(from_currency=840, to_currency=980, rate=1, module="privat_api")
     XRate.create(from_currency=840, to_currency=643, rate=1, module="cbr_api")
     XRate.create(from_currency=1000, to_currency=840, rate=1, module="privat_api")
-    XRate.create(from_currency=1000, to_currency=980, rate=1, module="cryptonator_api")
-    XRate.create(from_currency=1000, to_currency=643, rate=1, module="cryptonator_api")
 
     for m in (ApiLog, ErrorLog):
         m.drop_table()

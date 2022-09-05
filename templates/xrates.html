@@ -3,21 +3,51 @@
 <html>
 <head>
     <title>Rates</title>
+    <style>
+   table {
+    width: 50%; /* Ширина таблицы в процентах */
+    height: 300px;
+   }
+   .col1 {
+    width: 50px; /* Ширина ячейки */
+   }
+  </style>
+    <style>
+  body {
+  background: url(https://images.t-online.de/2022/08/iFINaPs-Z6Dg/4x0:3992x2661/fit-in/__WIDTH__x0/ein-kerzenchart-des-deutschen-aktien-index-dax-archivbild-experten-erwarten-einen-schwachen-wochenauftakt.jpg) -300% 0%
+  }
+</style>
 </head>
 <body>
     {% if not xrates %}
     <h1>No rates!</h1>
     {% endif %}
-
-    <table border="1">
+<style type="text/css">
+   TABLE {
+   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 20px;
+    border-radius: 10px;
+    border-spacing: 2;
+    text-align: center;
+    color: white; /* Цвет текста */
+   }
+   TD, TH {
+    border: 2px solid white; /* Параметры рамки */
+   }
+  </style>
+    <table border="5" align="center">
         <thead align="center">
-            <td>From</td><td>To</td><td>Rate</td>
+            <td>From</td><td>To</td><td>Rate</td><td>Updated</td><td><a href="{{url_for('update_xrates')}}">Update All</a></td>
         </thead>
         {% for rate in xrates %}
         <tr align="center">
             <td>{{rate.from_currency}}</td>
             <td>{{rate.to_currency}}</td>
             <td>{{rate.rate}}</td>
+            <td>{{rate.updated}}</td>
+            <td>
+                <a href="{{url_for('update_xrates', from_currency=rate.from_currency, to_currency=rate.to_currency)}}">Update</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
