@@ -1,8 +1,24 @@
+from functools import wraps
+
+from flask import request, abort
+
 from app import app
 import controllers
+from config import IP_LIST
 
 
-@app.route("/", methods=["GET", "POST"])
+def check_ip(func):
+    @wraps(func)
+    def checker(*args, **kwds):
+        if request.remote_addr not in IP_LIST:
+            return abort(403)
+
+        return func(*args, **kwds)
+
+    return checker
+
+
+@app.route("/")
 def hello():
     return "Hello everybody!"
 
@@ -23,11 +39,7 @@ def update_xrates(from_currency=None, to_currency=None):
     return controllers.UpdateRates().call(from_currency, to_currency)
 
 
-@app.route("/edit/<int:from_currency>/<int:to_currency>", methods=["GET", "POST"])
-def edit_xrate(from_currency, to_currency):
-    return controllers.EditRate().call(from_currency, to_currency)
-
-
-@app.route("/logs")
-def view_logs():
-    return controllers.ViewLogs().call()
+@app.route("/logs/<log_type>")
+@check_ip
+def view_logs(log_type):
+    return controllers.ViewLogs().call(log_type)

@@ -1,8 +1,9 @@
 from flask import render_template, make_response, jsonify, request, redirect, url_for
 import xmltodict
 
-from models import XRate, ApiLog
+from models import XRate, ApiLog, ErrorLog
 import api
+from app import app
 
 
 class BaseController:
@@ -11,9 +12,11 @@ class BaseController:
 
     def call(self, *args, **kwds):
         try:
+            app.logger.info(f"Started {self.__class__.__name__}")
             return self._call(*args, **kwds)
         except Exception as ex:
-            return make_response(str(ex), 500)
+            app.logger.exception("Error: %s" % ex)
+            return make_response(str(ex), getattr(ex, "code", 500))
 
     def _call(self, *args, **kwds):
         raise NotImplementedError("_call")
@@ -65,8 +68,8 @@ class UpdateRates(BaseController):
             self._update_rate(from_currency, to_currency)
 
         else:
-            ValueError("from_currency and to_currency")
-        return redirect(url_for("view_rates"))
+            raise ValueError("from_currency and to_currency")
+        return redirect(url_for('view_rates'))
 
     def _update_rate(self, from_currency, to_currency):
         api.update_rate(from_currency, to_currency)
@@ -77,32 +80,18 @@ class UpdateRates(BaseController):
             try:
                 self._update_rate(rate.from_currency, rate.to_currency)
             except Exception as ex:
-                print(ex)
+                app.logger.exception(ex)
 
 
 class ViewLogs(BaseController):
-    def _call(self):
+    def _call(self, log_type):
+        app.logger.debug("log_type: %s" % log_type)
         page = int(self.request.args.get("page", 1))
-        logs = ApiLog.select().paginate(page, 10).order_by(ApiLog.id.desc())
+        logs_map = {"api": ApiLog, "error": ErrorLog}
+
+        if log_type not in logs_map:
+            raise ValueError("Unknown log_type: %s" % log_type)
+
+        log_model = logs_map[log_type]
+        logs = log_model.select().paginate(page, 10).order_by(log_model.id.desc())
         return render_template("logs.html", logs=logs)
-
-
-class EditRate(BaseController):
-    def _call(self, from_currency, to_currency):
-        if self.request.method == "GET":
-            return render_template("rate_edit.html", from_currency=from_currency, to_currency=to_currency)
-
-        # POST request is got
-        print(request.form)
-        if "new_rate" not in request.form:
-            raise Exception("new_rate parametr is required")
-
-        if not request.form["new_rate"]:
-            raise Exception("new_rate must be not empty")
-
-        upd_count = (XRate.update({XRate.rate: float(request.form["new_rate"]), XRate.updated: datetime.now()})
-                     .where(XRate.from_currency == from_currency,
-                            XRate.to_currency == to_currency).execute())
-
-        print("upd_count", upd_count)
-        return redirect(url_for('view_rates'))

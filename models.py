@@ -1,14 +1,17 @@
 from peewee import (SqliteDatabase, Model, IntegerField, DoubleField, DateTimeField, datetime as peewee_datetime,
                     CharField, TextField)
 
-from config import DB_NAME
+import config
 
-db = SqliteDatabase(DB_NAME)
+db = SqliteDatabase(config.DB_NAME)
 
 
 class _Model(Model):
     class Meta:
         database = db
+
+    def json(self):
+        return self.__data__
 
 
 class XRate(_Model):
@@ -40,10 +43,6 @@ class ApiLog(_Model):
     created = DateTimeField(index=True, default=peewee_datetime.datetime.now)
     finished = DateTimeField()
     error = TextField(null=True)
-
-    def json(self):
-        data = self.__data__
-        return data
 
 
 class ErrorLog(_Model):
